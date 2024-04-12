@@ -7,12 +7,10 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  eval = FALSE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%")
-library(knitr)
-  
+  out.width = "100%"
+)
 ```
 
 # Numpute
@@ -20,19 +18,15 @@ library(knitr)
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of Numpute is to make imputing values into numeric vectors simple.
+The goal of Numpute is to simplify imputation for numeric vectors with missing values.
 
 ## Installation
 
-You can install the development version of Numpute like so:
+You can install the development version of Numpute from [GitHub](https://github.com/) with:
 
-``` {r}
-#for others:
-#run devtools::install_github("easoneli176/Numpute") to install package
-
-#on my personal machine
-library(devtools)
-library(Numpute)
+``` r
+# install.packages("devtools")
+devtools::install_github("easoneli176/Numpute")
 ```
 
 ## Example
@@ -41,67 +35,6 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(Numpute)
-
-numvec<-as.numeric(c(1,2,3,3,4,4,"NA"))
-Mode(numvec)
-Modes(numvec)
-
-mock_data <- data.frame(pred1 = rep(1:4,10),pred2=rep(1:5,8),missvar=as.numeric(c("NA",rep(1:2,19),"NA")))
-mod1<-ImpReg(mock_data,"missvar",c("pred1","pred2"))
-summary(mod1)
-
-RI<-numpute(mock_data,"missvar","reg",c("pred1","pred2"))
-
-library(dplyr)
-library(kableExtra)
-RI %>%
-  kable(format = "html", col.names = colnames(RI)) %>%
-  kable_styling() %>%
-  kableExtra::scroll_box(width = "100%", height = "100px")
-
-CV<-numpute(mock_data,"missvar","chosenval",chosenval=3)
-
-CV %>%
-  kable(format = "html", col.names = colnames(CV)) %>%
-  kable_styling() %>%
-  kableExtra::scroll_box(width = "100%", height = "100px")
-
-MNI<-numpute(mock_data,"missvar","mean")
-
-MNI %>%
-  kable(format = "html", col.names = colnames(MNI)) %>%
-  kable_styling() %>%
-  kableExtra::scroll_box(width = "100%", height = "100px")
-
-MDI<-numpute(mock_data,"missvar","median")
-
-MDI %>%
-  kable(format = "html", col.names = colnames(MDI)) %>%
-  kable_styling() %>%
-  kableExtra::scroll_box(width = "100%", height = "100px")
-
-MOI<-numpute(mock_data,"missvar","mode")
-
-MOI %>%
-  kable(format = "html", col.names = colnames(MOI)) %>%
-  kable_styling() %>%
-  kableExtra::scroll_box(width = "100%", height = "100px")
-
-
-
-
-#Notes on package creation for Lizzie that probably belong in a template:
-#when creating a package, use roxygen2::roxygenise() to create documentation after writing the source code .R file
-#ctrl+shift+B rebuilds package after editing
-#to connect existing package to github, make sure project has version control, commit changes, then run in the terminal:
-#git remote add origin git@github.com:easoneli176/reponame.git (can copy this link from repo)
-#git branch -M main
-#git push -u origin main
-
-#if packages need uploading:
-#manually find the package in windows, they're stored here: C:\Users\eason\AppData\Local\R\win-library\4.2
-#move the package out of that folder and keep it somewhere in case stuff breaks
-#then install the newest version. If issues, can go to cran website and get zip file to move into folder
-#The code `devtools::build_readme()` is handy for keeping README.md up to date. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
-#This seems to fail without changing the output type to html, so trying that
+## basic example code
 ```
+
