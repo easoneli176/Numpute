@@ -40,3 +40,40 @@ numvec<-as.numeric(c(1,2,3,3,4,4,"NA"))
 Mode(numvec)
 ```
 
+The Modes function finds and returns all modes of a vector:
+
+```{r example2}
+Modes(numvec)
+```
+
+The ImpReg function creates a linear regression model to impute values in a vector based on specified predictors:
+
+```{r example3}
+mock_data <- data.frame(pred1 = rep(1:4,10),pred2=rep(1:5,8),missvar=as.numeric(c("NA",rep(1:2,19),"NA")))
+mod1<-ImpReg(mock_data,"missvar",c("pred1","pred2"))
+
+summary(mod1)
+```
+
+Finally, the numpute function allows you to impute values using several methods:
+
+chosenval: choose a value to impute and manually specify it
+
+mean: impute the mean of the vector
+
+median: impute the median of the vector
+
+mode: impute the mode of the vector
+
+reg: use linear regression with specified predictors to impute missing values
+
+```{r example4}
+
+numpute(mock_data,"missvar","chosenval",chosenval=3)
+numpute(mock_data,"missvar","mean")
+numpute(mock_data,"missvar","median")
+numpute(mock_data,"missvar","mode")
+numpute(mock_data,"missvar","reg",c("pred1","pred2"))
+
+```
+
