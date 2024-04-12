@@ -50,6 +50,8 @@ summary(mod1)
 
 RI<-numpute(mock_data,"missvar","reg",c("pred1","pred2"))
 
+library(dplyr)
+library(kableExtra)
 RI %>%
   kable(format = "html", col.names = colnames(RI)) %>%
   kable_styling() %>%
