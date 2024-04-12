@@ -14,7 +14,6 @@
 #' numpute(mock_data,"missvar","mode")
 #' numpute(mock_data,"missvar","reg",c("pred1","pred2"))
 
-
 numpute<-function(data,numvar,method,preds=c("empty"),chosenval=0){
   impvec<-rep(1,dim(data)[1])
 
@@ -47,11 +46,7 @@ numpute<-function(data,numvar,method,preds=c("empty"),chosenval=0){
 
   if(method == "reg"){
 
-    filldat<-data[!is.na(numvar2),]
-    numvar3<-filldat[,which(colnames(filldat) == numvar)]
-    filldat<-filldat[,which(colnames(filldat) %in% preds)]
-
-    mod<-lm(numvar3~.,data=filldat)
+    mod<-ImpReg(data,numvar,preds)
 
     predvals<-predict(mod,data,type="response")
 
