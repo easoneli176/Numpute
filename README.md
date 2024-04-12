@@ -21,9 +21,14 @@ devtools::install_github("easoneli176/Numpute")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+The Mode function finds the mode of a vector. Note if there are
+multiple, it returns the first one:
 
 ``` r
 library(Numpute)
-## basic example code
+
+numvec<-as.numeric(c(1,2,3,3,4,4,"NA"))
+#> Warning: NAs introduced by coercion
+Mode(numvec)
+#> [1] 3
 ```
