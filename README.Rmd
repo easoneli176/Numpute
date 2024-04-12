@@ -1,5 +1,5 @@
 ---
-output: html_document
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -7,10 +7,12 @@ output: html_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  eval = FALSE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
-)
+  out.width = "100%")
+library(knitr)
+  
 ```
 
 # Numpute
