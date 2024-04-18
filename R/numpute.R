@@ -13,8 +13,10 @@
 #' numpute(mock_data,"missvar","median")
 #' numpute(mock_data,"missvar","mode")
 #' numpute(mock_data,"missvar","reg",c("pred1","pred2"))
+#' model<-ImpReg(mock_data,"missvar",c("pred1","pred2"))
+#' numpute(mock_data,"missvar","model",c("pred1","pred2"),model=model)
 
-numpute<-function(data,numvar,method,preds=c("empty"),chosenval=0){
+numpute<-function(data,numvar,method,preds=c("empty"),chosenval=0,model=0){
   impvec<-rep(1,dim(data)[1])
 
   numcol<-which(colnames(data) == numvar)
@@ -47,6 +49,14 @@ numpute<-function(data,numvar,method,preds=c("empty"),chosenval=0){
   if(method == "reg"){
 
     mod<-ImpReg(data,numvar,preds)
+
+    predvals<-predict(mod,data,type="response")
+
+    impvec<-ifelse(is.na(numvar2),predvals,numvar2)
+  }
+
+  if(method == "model"){
+    mod<-model
 
     predvals<-predict(mod,data,type="response")
 

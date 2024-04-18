@@ -74,6 +74,10 @@ summary(mod1)
 Finally, the numpute function allows you to impute values using several
 methods:
 
+model: If you have used the ImpReg function or some other method to
+create a model already, you can use this model to impute values in the
+numpute function
+
 chosenval: choose a value to impute and manually specify it
 
 mean: impute the mean of the vector
@@ -86,7 +90,53 @@ reg: use linear regression with specified predictors to impute missing
 values
 
 ``` r
-
+#note: if using the ImpReg function, this method is identical to the "reg" method, 
+#but this code may be easier to use if you want the same model to be used on 
+#many different vectors without rebuilding the model each time, 
+#which is useful when working with a test set
+model<-ImpReg(mock_data,"missvar",c("pred1","pred2"))
+numpute(mock_data,"missvar","model",c("pred1","pred2"),model=model)
+#>       missvar_imputed missvar_missingind
+#>  [1,]        1.753086                  1
+#>  [2,]        1.000000                  0
+#>  [3,]        2.000000                  0
+#>  [4,]        1.000000                  0
+#>  [5,]        2.000000                  0
+#>  [6,]        1.000000                  0
+#>  [7,]        2.000000                  0
+#>  [8,]        1.000000                  0
+#>  [9,]        2.000000                  0
+#> [10,]        1.000000                  0
+#> [11,]        2.000000                  0
+#> [12,]        1.000000                  0
+#> [13,]        2.000000                  0
+#> [14,]        1.000000                  0
+#> [15,]        2.000000                  0
+#> [16,]        1.000000                  0
+#> [17,]        2.000000                  0
+#> [18,]        1.000000                  0
+#> [19,]        2.000000                  0
+#> [20,]        1.000000                  0
+#> [21,]        2.000000                  0
+#> [22,]        1.000000                  0
+#> [23,]        2.000000                  0
+#> [24,]        1.000000                  0
+#> [25,]        2.000000                  0
+#> [26,]        1.000000                  0
+#> [27,]        2.000000                  0
+#> [28,]        1.000000                  0
+#> [29,]        2.000000                  0
+#> [30,]        1.000000                  0
+#> [31,]        2.000000                  0
+#> [32,]        1.000000                  0
+#> [33,]        2.000000                  0
+#> [34,]        1.000000                  0
+#> [35,]        2.000000                  0
+#> [36,]        1.000000                  0
+#> [37,]        2.000000                  0
+#> [38,]        1.000000                  0
+#> [39,]        2.000000                  0
+#> [40,]        1.246914                  1
 numpute(mock_data,"missvar","chosenval",chosenval=3)
 #>       missvar_imputed missvar_missingind
 #>  [1,]               3                  1

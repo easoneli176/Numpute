@@ -4,7 +4,7 @@
 \alias{numpute}
 \title{Takes a numeric vector with missing values in a dataset and imputes a tailored value into the missing instances and outputs an additional field to denote which values were originally missing}
 \usage{
-numpute(data, numvar, method, preds = c("empty"), chosenval = 0)
+numpute(data, numvar, method, preds = c("empty"), chosenval = 0, model = 0)
 }
 \arguments{
 \item{data}{a dataset}
@@ -30,4 +30,6 @@ numpute(mock_data,"missvar","mean")
 numpute(mock_data,"missvar","median")
 numpute(mock_data,"missvar","mode")
 numpute(mock_data,"missvar","reg",c("pred1","pred2"))
+model<-ImpReg(mock_data,"missvar",c("pred1","pred2"))
+numpute(mock_data,"missvar","model",c("pred1","pred2"),model=model)
 }
