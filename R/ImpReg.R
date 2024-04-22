@@ -1,4 +1,5 @@
-#' Takes a numeric vector with missing values and outputs a regression model that can be used to impute those missing values
+#' Takes a numeric vector with missing values and outputs a regression model that can be used to
+#' impute those missing values
 #'
 #' @param data a dataset
 #' @param numvar the numeric field in the dataset to have its missing values imputed
