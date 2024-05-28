@@ -2,9 +2,18 @@
 % Please edit documentation in R/numpute.R
 \name{numpute}
 \alias{numpute}
-\title{Takes a numeric vector with missing values in a dataset and imputes a tailored value into the missing instances and outputs an additional field to denote which values were originally missing}
+\title{Takes a numeric vector with missing values in a dataset and imputes a tailored value into the missing instances
+and outputs an additional field to denote which values were originally missing}
 \usage{
-numpute(data, numvar, method, preds = c("empty"), chosenval = 0, model = 0)
+numpute(
+  data,
+  numvar,
+  method,
+  preds = c("empty"),
+  chosenval = 0,
+  model = 0,
+  facvar = c("empty")
+)
 }
 \arguments{
 \item{data}{a dataset}
@@ -15,13 +24,18 @@ numpute(data, numvar, method, preds = c("empty"), chosenval = 0, model = 0)
 
 \item{preds}{an optional input; the names of fields to be used as predictors if method = "reg" (regression)}
 
-\item{chosenval}{an optional input; if you simply want a particular value to be imputed, you can make it the chosen value to impute}
+\item{chosenval}{an optional input; if you simply want a particular value to be imputed,
+you can make it the chosen value to impute}
+
+\item{facvar}{an optional input; the names of fields to be used as groups if method = "groupedmean"}
 }
 \value{
-two vectors: one with the original field with imputed values, and another that indicates which values in the original field were missing prior to imputation
+two vectors: one with the original field with imputed values,
+and another that indicates which values in the original field were missing prior to imputation
 }
 \description{
-Takes a numeric vector with missing values in a dataset and imputes a tailored value into the missing instances and outputs an additional field to denote which values were originally missing
+Takes a numeric vector with missing values in a dataset and imputes a tailored value into the missing instances
+and outputs an additional field to denote which values were originally missing
 }
 \examples{
 mock_data <- data.frame(pred1 = rep(1:4,10),pred2=rep(1:5,8),missvar=as.numeric(c("NA",rep(1:2,19),"NA")))
@@ -32,4 +46,7 @@ numpute(mock_data,"missvar","mode")
 numpute(mock_data,"missvar","reg",c("pred1","pred2"))
 model<-ImpReg(mock_data,"missvar",c("pred1","pred2"))
 numpute(mock_data,"missvar","model",c("pred1","pred2"),model=model)
+mock_data$groupvar1<-c(rep("A",20),rep("B",20))
+mock_data$groupvar2<-c(rep("A",10),rep("B",20),rep("A",10))
+numpute(mock_data,"missvar","groupedmean",facvar=c("groupvar1","groupvar2"))
 }

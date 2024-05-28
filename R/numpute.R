@@ -5,6 +5,7 @@
 #' @param numvar the numeric field in the dataset to have its missing values imputed
 #' @param method the methodology to be use for imputation
 #' @param preds an optional input; the names of fields to be used as predictors if method = "reg" (regression)
+#' @param facvar an optional input; the names of fields to be used as groups if method = "groupedmean"
 #' @param chosenval an optional input; if you simply want a particular value to be imputed,
 #' you can make it the chosen value to impute
 #' @return two vectors: one with the original field with imputed values,
@@ -18,8 +19,11 @@
 #' numpute(mock_data,"missvar","reg",c("pred1","pred2"))
 #' model<-ImpReg(mock_data,"missvar",c("pred1","pred2"))
 #' numpute(mock_data,"missvar","model",c("pred1","pred2"),model=model)
+#' mock_data$groupvar1<-c(rep("A",20),rep("B",20))
+#' mock_data$groupvar2<-c(rep("A",10),rep("B",20),rep("A",10))
+#' numpute(mock_data,"missvar","groupedmean",facvar=c("groupvar1","groupvar2"))
 
-numpute<-function(data,numvar,method,preds=c("empty"),chosenval=0,model=0){
+numpute<-function(data,numvar,method,preds=c("empty"),chosenval=0,model=0,facvar=c("empty")){
   impvec<-rep(1,dim(data)[1])
 
   numcol<-which(colnames(data) == numvar)
@@ -64,6 +68,43 @@ numpute<-function(data,numvar,method,preds=c("empty"),chosenval=0,model=0){
     predvals<-predict(mod,data,type="response")
 
     impvec<-ifelse(is.na(numvar2),predvals,numvar2)
+  }
+
+  if(method == "groupedmean"){
+    data2<-data[!is.na(numvar2),]
+
+    faccols<-which(colnames(data) %in% facvar)
+
+    facs<-list()
+
+    for (i in 1:length(faccols)){
+      facs[[i]]<-data2[,faccols[i]]
+    }
+
+    groupmean<-aggregate(data2[,which(colnames(data2)== numvar)],facs,mean)
+    #need to write a lookup that doesn't left join from dplyr so we don't need that library
+
+    impvec<-c()
+
+    for (i in 1:dim(data)[1]){
+      if(!is.na(numvar2[i])){
+        impvec[i]<-numvar2[i]
+      }else {
+        vecvals<-c()
+        for (j in 1:length(faccols)){
+        k<-faccols[j]
+        vecvals<-c(vecvals,data[i,k])
+      }
+        #groupmeanpull<-groupmean[for (i in 1:length(faccols)){groupmean[,i]==vecvals[i]},]
+
+        groupmeanpull<-groupmean
+        for (j in 1:length(faccols)){
+          groupmeanpull<-groupmeanpull[groupmeanpull[,j]==vecvals[j],]
+        }
+
+        impvec[i]<-groupmeanpull$x
+        }
+    }
   }
 
   newvec<-cbind(impvec,missind)

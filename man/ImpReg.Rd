@@ -2,7 +2,8 @@
 % Please edit documentation in R/ImpReg.R
 \name{ImpReg}
 \alias{ImpReg}
-\title{Takes a numeric vector with missing values and outputs a regression model that can be used to impute those missing values}
+\title{Takes a numeric vector with missing values and outputs a regression model that can be used to
+impute those missing values}
 \usage{
 ImpReg(data, numvar, preds = c("empty"))
 }
@@ -17,7 +18,8 @@ ImpReg(data, numvar, preds = c("empty"))
 a model
 }
 \description{
-Takes a numeric vector with missing values and outputs a regression model that can be used to impute those missing values
+Takes a numeric vector with missing values and outputs a regression model that can be used to
+impute those missing values
 }
 \examples{
 mock_data <- data.frame(pred1 = rep(1:4,10),pred2=rep(1:5,8),missvar=as.numeric(c("NA",rep(1:2,19),"NA")))

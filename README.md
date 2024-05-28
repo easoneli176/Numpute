@@ -89,6 +89,9 @@ mode: impute the mode of the vector
 reg: use linear regression with specified predictors to impute missing
 values
 
+groupedmean: calculates the mean of groups using facvar and imputes
+values based on group belonging
+
 ``` r
 #note: if using the ImpReg function, this method is identical to the "reg" method, 
 #but this code may be easier to use if you want the same model to be used on 
@@ -348,4 +351,49 @@ numpute(mock_data,"missvar","reg",c("pred1","pred2"))
 #> [38,]        1.000000                  0
 #> [39,]        2.000000                  0
 #> [40,]        1.246914                  1
+
+mock_data$groupvar1<-c(rep("A",20),rep("B",20))
+mock_data$groupvar2<-c(rep("A",10),rep("B",20),rep("A",10))
+numpute(mock_data,"missvar","groupedmean",facvar=c("groupvar1","groupvar2"))
+#>       missvar_imputed missvar_missingind
+#>  [1,]        1.444444                  1
+#>  [2,]        1.000000                  0
+#>  [3,]        2.000000                  0
+#>  [4,]        1.000000                  0
+#>  [5,]        2.000000                  0
+#>  [6,]        1.000000                  0
+#>  [7,]        2.000000                  0
+#>  [8,]        1.000000                  0
+#>  [9,]        2.000000                  0
+#> [10,]        1.000000                  0
+#> [11,]        2.000000                  0
+#> [12,]        1.000000                  0
+#> [13,]        2.000000                  0
+#> [14,]        1.000000                  0
+#> [15,]        2.000000                  0
+#> [16,]        1.000000                  0
+#> [17,]        2.000000                  0
+#> [18,]        1.000000                  0
+#> [19,]        2.000000                  0
+#> [20,]        1.000000                  0
+#> [21,]        2.000000                  0
+#> [22,]        1.000000                  0
+#> [23,]        2.000000                  0
+#> [24,]        1.000000                  0
+#> [25,]        2.000000                  0
+#> [26,]        1.000000                  0
+#> [27,]        2.000000                  0
+#> [28,]        1.000000                  0
+#> [29,]        2.000000                  0
+#> [30,]        1.000000                  0
+#> [31,]        2.000000                  0
+#> [32,]        1.000000                  0
+#> [33,]        2.000000                  0
+#> [34,]        1.000000                  0
+#> [35,]        2.000000                  0
+#> [36,]        1.000000                  0
+#> [37,]        2.000000                  0
+#> [38,]        1.000000                  0
+#> [39,]        2.000000                  0
+#> [40,]        1.555556                  1
 ```
