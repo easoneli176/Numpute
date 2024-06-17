@@ -90,7 +90,8 @@ numpute<-function(data,numvar,method,preds=c("empty"),chosenval=0,model=0,facvar
       if(!is.na(numvar2[i])){
         impvec[i]<-numvar2[i]
       }else {
-        vecvals<-c()
+        #ensuring empty vector does not default to integer
+        vecvals<-as.factor(c())
         for (j in 1:length(faccols)){
         k<-faccols[j]
         vecvals<-c(vecvals,data[i,k])
