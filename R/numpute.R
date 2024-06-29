@@ -6,7 +6,7 @@
 #' @param method the methodology to be use for imputation
 #' @param preds an optional input; the names of fields to be used as predictors if method = "reg" (regression)
 #' @param facvar an optional input; the names of fields to be used as groups if method = "groupedmean"
-#' @param chosenval an optional input; if you simply want a particular value to be imputed,
+#' @param chosenval an optional input; if you simply want a particular value to be imputed
 #' you can make it the chosen value to impute
 #' @return two vectors: one with the original field with imputed values,
 #' and another that indicates which values in the original field were missing prior to imputation

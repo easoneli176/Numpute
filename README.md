@@ -397,3 +397,8 @@ numpute(mock_data,"missvar","groupedmean",facvar=c("groupvar1","groupvar2"))
 #> [39,]        2.000000                  0
 #> [40,]        1.555556                  1
 ```
+
+Note that if you wish to compute a weighted grouped mean, you must
+calculate a weighted column first, generally by multiplying the numeric
+column by the weight and then dividing it by the mean of the column of
+weights. Then run the groupedmean feature as usual.

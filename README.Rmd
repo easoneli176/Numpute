@@ -89,3 +89,5 @@ mock_data$groupvar2<-c(rep("A",10),rep("B",20),rep("A",10))
 numpute(mock_data,"missvar","groupedmean",facvar=c("groupvar1","groupvar2"))
 ```
 
+Note that if you wish to compute a weighted grouped mean, you must calculate a weighted column first, generally by multiplying the numeric column by the weight and then dividing it by the mean of the column of weights. Then run the groupedmean feature as usual.
+
